@@ -28,12 +28,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Header = () => {
+const Header = (props) => {
     const classes = useStyles();
+    const styles = props.style;
     return(
-        <React.Fragment>
+        <React.Fragment style={styles}>
             <CssBaseline />
-            <AppBar position="fixed">
+            <AppBar>
                 <Toolbar className={classes.toolbar}>
                     <Typography variant="h6" color="inherit" noWrap>
                         Surfy

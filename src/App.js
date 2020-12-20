@@ -21,9 +21,9 @@ function App() {
   return (
     <Router>
       <Layout>
-        <Container className={classes.container}>
+        <Container className={classes.container} fixed>
           <Switch>
-              <Route exact path="/"  component={Home}/>
+              <Route exact path="/" component={Home}/>
           </Switch>
         </Container>
       </Layout>
