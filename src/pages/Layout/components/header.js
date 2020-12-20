@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     },
     navbar: {
         right:0,
-        position:'fixed'
     },
     routerLink: {
         textDecoration: 'none'

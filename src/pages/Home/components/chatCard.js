@@ -8,6 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {ChatContext} from '../../../contexts/ChatContext';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
     root: {
@@ -23,9 +24,11 @@ const ChatCard = (props) => {
     const {title,description,imageUrl,owner,roomId} = props;
     const {setCurrentChatRoom} = useContext(ChatContext);
 
+    let history = useHistory();
+    
     const joinChat = () => {
         setCurrentChatRoom({title:title,description:description,owner:owner,imageUrl:imageUrl,roomId:roomId});
-        window.location = window.location.origin+`/rooms/${roomId}`;
+        history.push(`/rooms/${roomId}`);
     }
     return(
         <>

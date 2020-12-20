@@ -2,23 +2,24 @@ import React, { useEffect, useState } from 'react';
 
 export const ChatContext = React.createContext();
 
-export default ({children}) => {
+const ChatContextProvider = ({children}) => {
     const [currentChatRoom,setCurrentChatRoom] = useState(null);
 
-    const title = currentChatRoom?.title;
+    var title = currentChatRoom?.title;
 
     const defaultContext = {
-        currentChatRoom,
-        setCurrentChatRoom,
-        title
+        title,
+        setCurrentChatRoom
     }
 
     useEffect(() => {
-
+        title = currentChatRoom?.title;
     }, [currentChatRoom])
     return(
         <ChatContext.Provider value={defaultContext}>
             {children}
         </ChatContext.Provider>
-    )
+    );
 }
+
+export default ChatContextProvider;
