@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {ChatContext} from '../../../contexts/ChatContext';
 
 const useStyles = makeStyles({
     root: {
@@ -17,36 +18,40 @@ const useStyles = makeStyles({
     },
 });
 
-const ChatCard = () => {
+const ChatCard = (props) => {
     const classes = useStyles();
+    const {title,description,imageUrl,owner,roomId} = props;
+    const {setCurrentChatRoom} = useContext(ChatContext);
 
+    const joinChat = () => {
+        setCurrentChatRoom({title:title,description:description,owner:owner,imageUrl:imageUrl,roomId:roomId});
+        window.location = window.location.origin+`/rooms/${roomId}`;
+    }
     return(
-        <Card className={classes.root}>
-            <CardActionArea>
-                <CardMedia
-                className={classes.media}
-                image="/static/images/cards/contemplative-reptile.jpg"
-                title="Contemplative Reptile"
-                />
-                <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                    Lizard
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                    across all continents except Antarctica
-                </Typography>
-                </CardContent>
-            </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                Share
-                </Button>
-                <Button size="small" color="primary">
-                Learn More
-                </Button>
-            </CardActions>
-        </Card>
+        <>
+            <Card className={classes.root}>
+                <CardActionArea>
+                    <CardMedia
+                    className={classes.media}
+                    image={imageUrl}
+                    title={title}
+                    />
+                    <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                        {title}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {description}
+                    </Typography>
+                    </CardContent>
+                </CardActionArea>
+                <CardActions>
+                    <Button size="small" color="primary" onClick={joinChat}>
+                        Konuşmaya katıl
+                    </Button>
+                </CardActions>
+            </Card>
+        </>
     );
 };
 

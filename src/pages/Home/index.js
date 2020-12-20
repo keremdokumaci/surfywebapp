@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ChatCard from './components/chatCard';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Paper from '@material-ui/core/Paper';
+import {GetChatRooms} from './api/index';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,11 +45,25 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
     const classes = useStyles();
+    const [chatRooms,setChatRooms] = useState(null);
     const [openModal,setOpenModal] = useState(false);
+    const [selectedRoom, setSelectedRoom] = useState(null);
 
     const openNewChatRoomModal = () => {
         setOpenModal(true);
     }
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            const [response,error] = await GetChatRooms();
+            if(!!response)
+                setChatRooms(response.chatrooms);
+            
+            
+        }
+        fetchData();
+    },[chatRooms])
+
     return(
         <React.Fragment>
             <Grid container className={classes.buttonRow} spacing={3}>
@@ -56,7 +71,7 @@ const Home = () => {
                     <Paper component="form" className={classes.root}>
                         <InputBase
                             className={classes.input}
-                            placeholder="Search For Chatroom"
+                            placeholder="Bir konu aratın.."
                             inputProps={{ 'aria-label': 'search google maps' }}
                         />
                         <IconButton type="submit" className={classes.iconButton} aria-label="search">
@@ -70,46 +85,27 @@ const Home = () => {
                         color="secondary"
                         onClick={openNewChatRoomModal}
                     >
-                        Create Chat Room
+                        Oda Oluştur
                     </Button>
                 </Grid>
-                
-                <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                    <ChatCard />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                    <ChatCard />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                    <ChatCard />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                    <ChatCard />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                    <ChatCard />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                    <ChatCard />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                    <ChatCard />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                    <ChatCard />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                    <ChatCard />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                    <ChatCard />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                    <ChatCard />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                    <ChatCard />
-                </Grid>
+                    {!!chatRooms && (
+                        Object.keys(chatRooms).map((key) => {
+                            var room = chatRooms[key];
+                            return (
+                                <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                                    <ChatCard 
+                                        key={key} 
+                                        title={room.title} 
+                                        description={room.description} 
+                                        imageUrl = {room.imageUrl} 
+                                        owner = {room.email}
+                                        roomId={room.roomId}
+                                    />
+                                </Grid>
+                            )
+                        })
+                    )}
+                    
             </Grid>
             {openModal && (
                 <NewChatRoomPopup openModal={openModal} setOpenModal={setOpenModal}/>

@@ -39,18 +39,6 @@ const Header = (props) => {
                     <Typography variant="h6" color="inherit" noWrap>
                         Surfy
                     </Typography>
-                    <nav className={classes.navbar}>
-                        <Link to="/login" className={classes.routerLink}>
-                            <Button variant="contained" color="secondary" className={classes.link}>
-                                Login
-                            </Button>
-                        </Link>
-                        <Link to="/signup" className={classes.routerLink}>
-                            <Button variant="contained" color="secondary" className={classes.link}>
-                                Sign Up
-                            </Button>
-                        </Link>
-                    </nav>
                 </Toolbar>
             </AppBar>
         </React.Fragment>

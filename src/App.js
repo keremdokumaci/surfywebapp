@@ -8,6 +8,8 @@ import {
 } from "react-router-dom";
 import Home from './pages/Home/index';
 import Container from '@material-ui/core/Container';
+import Chat from './pages/Chat/index';
+import ChatContextProvider from './contexts/ChatContext';
 
 const useStyles = makeStyles((theme) => ({
   container:{
@@ -20,13 +22,16 @@ function App() {
 
   return (
     <Router>
-      <Layout>
-        <Container className={classes.container} fixed>
-          <Switch>
-              <Route exact path="/" component={Home}/>
-          </Switch>
-        </Container>
-      </Layout>
+      <ChatContextProvider>
+        <Layout>
+          <Container className={classes.container} fixed>
+            <Switch>
+                <Route exact path="/" component={Home}/>
+                <Route exact path="/rooms/:roomId" component={Chat}/>
+            </Switch>
+          </Container>
+        </Layout>
+      </ChatContextProvider>
     </Router>
   );
 }

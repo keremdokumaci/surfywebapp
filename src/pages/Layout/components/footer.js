@@ -5,10 +5,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     footer: {
-      backgroundColor: theme.palette.background.paper,
-      padding: theme.spacing(1),
-      bottom: 0,
-      width: '100%'
+        backgroundColor: theme.palette.background.paper,
+        padding: theme.spacing(1),
+        bottom: 0,
+        width: '100%',
+        position:'fixed'
     },
 }));
 
@@ -28,10 +29,10 @@ const Footer = () => {
     return(
         <footer className={classes.footer}>
             <Typography variant="h6" align="center" gutterBottom>
-            Surfy Chat Application
+                Surfy Chat Application
             </Typography>
             <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-            Developed By Kerem Dokumacı
+                Developed By Kerem Dokumacı
             </Typography>
             <Copyright />
         </footer>
