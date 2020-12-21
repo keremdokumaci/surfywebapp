@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext,useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {ChatContext} from '../../../contexts/ChatContext';
 import { useHistory } from "react-router-dom";
+import socketIOClient from "socket.io-client";
 
 const useStyles = makeStyles({
     root: {
@@ -22,13 +23,17 @@ const useStyles = makeStyles({
 const ChatCard = (props) => {
     const classes = useStyles();
     const {title,description,imageUrl,owner,roomId} = props;
-    const {setCurrentChatRoom} = useContext(ChatContext);
+    const {setCurrentChatRoom, setSocket} = useContext(ChatContext);
 
     let history = useHistory();
+
+    const socketRef = useRef();
     
     const joinChat = () => {
         setCurrentChatRoom({title:title,description:description,owner:owner,imageUrl:imageUrl,roomId:roomId});
         history.push(`/rooms/${roomId}`);
+        socketRef.current = socketIOClient(`http://localhost:5000`,{query:{roomId}});
+        setSocket(socketRef.current);
     }
     return(
         <>

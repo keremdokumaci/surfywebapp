@@ -33,7 +33,7 @@ const Header = (props) => {
     return(
         <React.Fragment style={styles}>
             <CssBaseline />
-            <AppBar>
+            <AppBar position="relative">
                 <Toolbar className={classes.toolbar}>
                     <Typography variant="h6" color="inherit" noWrap>
                         Surfy

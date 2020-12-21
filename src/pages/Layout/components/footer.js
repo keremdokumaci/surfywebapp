@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1),
         bottom: 0,
         width: '100%',
-        position:'fixed'
+        position:'fixed',
     },
 }));
 
