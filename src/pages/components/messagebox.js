@@ -28,17 +28,25 @@ const useStyles = makeStyles(()=>({
         padding:3,
         margin:5
     },
-
+    messageSender:{
+        fontSize:'smaller',
+        fontWeight:600,
+        fontStyle:'italic',
+    },
+    message:{
+        margin:3,
+        fontFamily:'cursive'
+    }
 }));
 const MessageBox = (props) => {
     const classes = useStyles();
     const {messageSender,message,isSender} = props;
     return(
         <div className={isSender ? classes.senderArea : classes.receiverArea}>
-            <div>
+            <div className={classes.messageSender}>
                 {messageSender}
             </div>
-            <div>
+            <div className={classes.message}>
                 {message}
             </div>
         </div>

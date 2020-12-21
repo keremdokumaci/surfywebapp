@@ -25,7 +25,7 @@ const Chat = () => {
         <Grid container>
             <Grid item xs={12} sm={12} md={12} l={12} xl={12}>
                 <div className={classes.root}>
-                    <AppBar position="static" color='secondary'>
+                    <AppBar position="static" color='primary'>
                     <Toolbar variant="dense">
                         <Typography variant="h6" color="inherit">
                             {title}
@@ -49,6 +49,31 @@ const Chat = () => {
                     <Grid item xs={12} sm={12} md={12} l={12} xl={12}>
                         <div style={{flex:1,flexDirection:'column'}}>
                             <MessageBox isSender={true} message="Nasılsım" messageSender="kerem.dkmc98@outlook.com"/>
+                        </div>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12} l={12} xl={12}>
+                        <div style={{flex:1,flexDirection:'column'}}>
+                            <MessageBox isSender={false} message="İyidir sen nasılsın." messageSender="yusuf.dkmc98@outlook.com"/>
+                        </div>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12} l={12} xl={12}>
+                        <div style={{flex:1,flexDirection:'column'}}>
+                            <MessageBox isSender={false} message="Python hakkında bir sorum var." messageSender="yusuf.dkmc98@outlook.com"/>
+                        </div>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12} l={12} xl={12}>
+                        <div style={{flex:1,flexDirection:'column'}}>
+                            <MessageBox isSender={true} message="Cevaplayayım. Sorun nedir ?" messageSender="kerem.dkmc98@outlook.com"/>
+                        </div>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12} l={12} xl={12}>
+                        <div style={{flex:1,flexDirection:'column'}}>
+                            <MessageBox isSender={true} message="İstersen 05376487447 den arayabilirsin." messageSender="kerem.dkmc98@outlook.com"/>
+                        </div>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12} l={12} xl={12}>
+                        <div style={{flex:1,flexDirection:'column'}}>
+                            <MessageBox isSender={false} message="Tuple nedir ? Örnek bir kullanımını söyler misin ?" messageSender="yusuf.dkmc98@outlook.com"/>
                         </div>
                     </Grid>
                 </Grid>
