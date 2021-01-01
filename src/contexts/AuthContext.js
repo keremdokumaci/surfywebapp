@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const AuthContext = () => {
+export const AuthContext = React.createContext();
 
+const AuthContextProvider = ({children}) => {
+    const [email, setEmail] = useState(undefined);
 
+    const defaultContext= {
+        email,
+        setEmail
+    }
+
+    return(
+        <AuthContext.Provider value={defaultContext}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
-export default AuthContext;
+export default AuthContextProvider;

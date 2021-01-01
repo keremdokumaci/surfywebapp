@@ -5,6 +5,7 @@ export const ChatContext = React.createContext();
 const ChatContextProvider = ({children}) => {
     const [currentChatRoom,setCurrentChatRoom] = useState(null);
     const [socket,setSocket] = useState(null);
+    const [socketRoom, setSocketRoom] = useState(null);
 
     var title = currentChatRoom?.title;
     var roomId = currentChatRoom?.roomId;
@@ -16,14 +17,15 @@ const ChatContextProvider = ({children}) => {
         owner,
         socket,
         setSocket,
-        setCurrentChatRoom
+        setCurrentChatRoom,
+        setSocketRoom
     }
 
-    useEffect(() => {
-        if(!!socket){
-            socket.disconnect();
-        }
-    }, [socket])
+    // useEffect(() => {
+    //     if(!!socket){
+    //         socket.disconnect();
+    //     }
+    // }, [socketRoom])
     
     useEffect(() => {
         title = currentChatRoom?.title;

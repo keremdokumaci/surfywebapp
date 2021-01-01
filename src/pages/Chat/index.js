@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {ChatContext} from '../../contexts/ChatContext';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -29,22 +29,25 @@ const RenderMessageBox = (isSender,message,messageSender) => {
 
 const Chat = () => {
     const classes = useStyles();
-    const {title,socket} = useContext(ChatContext);
+    const {title,socket,owner,roomId,setSocketRoom} = useContext(ChatContext);
     const [message,setMessage] = useState(null);
     const [allMessages,setAllMessages] = useState([]);
-
+    
     const sendMessage = () => {
-        socket.emit("NEW_MESSAGE",(message,messageSender) => {
-            const msg = {message:message,messageSender:messageSender,isSender:true};
-            setMessage(msg);
-            setAllMessages((allMessages)=>[...allMessages,msg]);
-        });
+        const msg = {message:message,messageSender:owner,roomId:roomId};
+        socket.emit("NEW_MESSAGE",msg);
     }
 
-    socket.emit("NEW_MESSAGE_CAME",(message,messageSender) => {
-        const msg = {message:message,messageSender:messageSender,isSender:false};
-        setAllMessages((allMessages)=>[...allMessages,msg]);
-    });
+    useEffect(() => {
+        socket.emit('JOIN_ROOM',{
+            roomId: roomId
+        });
+        setSocketRoom(roomId);
+        socket.on("NEW_MESSAGE",(message) => {
+            const msg = {message: message.message,messageSender: message.messageSender, isSender: message.messageSender === owner};
+            setAllMessages((allMessages)=>[...allMessages,msg]);
+        });
+    }, []);
 
     return(
         <Grid container>
