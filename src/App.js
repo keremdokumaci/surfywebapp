@@ -10,7 +10,7 @@ import Home from './pages/Home/index';
 import Container from '@material-ui/core/Container';
 import Chat from './pages/Chat/index';
 import ChatContextProvider from './contexts/ChatContext';
-import AuthContextProvider from './contexts/ChatContext';
+import AuthContextProvider from './contexts/AuthContext';
 
 
 const useStyles = makeStyles((theme) => ({

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ChatCard from './components/chatCard';
 import Grid from '@material-ui/core/Grid';
-import { Button, TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import NewChatRoomPopup from './components/newChatRoomPopup';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
@@ -47,7 +47,6 @@ const Home = () => {
     const classes = useStyles();
     const [chatRooms,setChatRooms] = useState(null);
     const [openModal,setOpenModal] = useState(false);
-    const [selectedRoom, setSelectedRoom] = useState(null);
 
     const openNewChatRoomModal = () => {
         setOpenModal(true);
@@ -56,10 +55,10 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             const [response,error] = await GetChatRooms();
-            if(!!response)
+            if(!error)
                 setChatRooms(response.chatrooms);
-            
-            
+            else
+                setChatRooms(null);
         }
         fetchData();
     },[chatRooms])

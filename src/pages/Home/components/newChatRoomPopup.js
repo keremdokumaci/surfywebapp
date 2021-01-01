@@ -11,7 +11,6 @@ import {CreateChatRoom} from '../api/index';
 
 const NewChatRoomPopup = (props) => {
     const {openModal,setOpenModal} = props;
-    const [email,setEmail] = useState(null);
     const [password,setPassword] = useState(null);
     const [chatRoomImage,setChatRoomImage] = useState(null);
     const [title,setTitle] = useState(null);
@@ -25,15 +24,11 @@ const NewChatRoomPopup = (props) => {
     const createChatRoom = async (e) => {
         e.preventDefault();
 
-        const [response,error] = await CreateChatRoom({email:email,password:password,imageUrl:chatRoomImage,title:title,description:description});
+        const [response,error] = await CreateChatRoom({imageUrl:chatRoomImage,title:title,description:description});
         if(!!response)
         {
             setOpenModal(false);
         }
-    }
-
-    const emailChange = (val) => {
-        setEmail(val.target.value);
     }
 
     const passwordChange = (val) => {
@@ -60,16 +55,6 @@ const NewChatRoomPopup = (props) => {
                     Konuşma odası oluşturmak için lütfen aşağıdaki alanları doldurunuz.
                 </DialogContentText>
                 <form onSubmit={createChatRoom}>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="email"
-                        label="Email"
-                        type="email"
-                        fullWidth
-                        autoComplete={false}
-                        onChange={emailChange}
-                    />
                     <TextField
                         margin="dense"
                         id="title"

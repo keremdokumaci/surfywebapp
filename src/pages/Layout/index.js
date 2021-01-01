@@ -10,7 +10,7 @@ const Layout = ({children}) => {
     const { setSocket } = useContext(ChatContext);
 
     useEffect(() => {
-        const socketClient = socketIOClient(`http://localhost:5000/`);
+        const socketClient = socketIOClient(`http://192.168.1.38:5000/`);
         setSocket(socketClient);
     }, []);
 

@@ -1,4 +1,4 @@
-import React,{useContext} from 'react';
+import React,{useState, useContext} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,14 +11,14 @@ import {AuthContext} from '../../../contexts/AuthContext';
 
 const AuthDialog = (props) => {
     const {openDialog,setOpenDailog,onSubmit} = props;
-    const {setEmail} = useContext(AuthContext);
-
+    const { setUser } = useContext(AuthContext);
+    
     const handleClose = () => {
         setOpenDailog(false);
     };
 
     const emailChange = (val) => {
-        setEmail(val.target.value);
+        setUser(val.target.value);
     }
 
     return(

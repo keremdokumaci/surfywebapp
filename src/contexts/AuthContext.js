@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 
 export const AuthContext = React.createContext();
 
-const AuthContextProvider = ({children}) => {
-    const [email, setEmail] = useState(undefined);
+export default ({children}) => {
+    const [user, setUser] = useState(null);
 
     const defaultContext= {
-        email,
-        setEmail
+        user,
+        setUser
     }
 
     return(
@@ -16,5 +16,3 @@ const AuthContextProvider = ({children}) => {
         </AuthContext.Provider>
     );
 };
-
-export default AuthContextProvider;

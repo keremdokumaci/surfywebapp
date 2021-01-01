@@ -1,9 +1,14 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
 
-const useStyles = makeStyles(()=>({
+const useStyles = makeStyles((theme)=>({
     senderArea:{
-        width:'20%',
+        [theme.breakpoints.up('md')]:{
+            width: '20%'
+        },
+        [theme.breakpoints.down('l')]:{
+            width: '50%'
+        },
         height:'30%',
         borderColor:'#adceff',
         backgroundColor:'#c3d6f3',
@@ -16,7 +21,12 @@ const useStyles = makeStyles(()=>({
         margin:5
     },
     receiverArea:{
-        width:'20%',
+        [theme.breakpoints.up('md')]:{
+            width: '20%'
+        },
+        [theme.breakpoints.down('l')]:{
+            width: '50%'
+        },
         height:'30%',
         borderColor:'#b3ff9a',
         backgroundColor:'#c3efb8',

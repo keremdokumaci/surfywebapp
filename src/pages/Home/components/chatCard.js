@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import {ChatContext} from '../../../contexts/ChatContext';
 import { useHistory } from "react-router-dom";
 import AuthDialog from './authDialog';
+import {AuthContext} from '../../../contexts/AuthContext';
 
 const useStyles = makeStyles({
     root: {
@@ -24,13 +25,14 @@ const ChatCard = (props) => {
     const classes = useStyles();
     const {title,description,imageUrl,owner,roomId} = props;
     const {setCurrentChatRoom} = useContext(ChatContext);
+    const {user} = useContext(AuthContext);
 
     const [openAuthDialog, setOpenAuthDialog] = useState(false);
 
     let history = useHistory();
     
     const joinChat = () => {
-        setCurrentChatRoom({title:title,description:description,owner:owner,imageUrl:imageUrl,roomId:roomId});
+        setCurrentChatRoom({title:title,description:description,owner:user,imageUrl:imageUrl,roomId:roomId});
         history.push(`/rooms/${roomId}`);
     }
     return(

@@ -7,9 +7,15 @@ const useStyles = makeStyles((theme) => ({
     footer: {
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(1),
-        bottom: 0,
         width: '100%',
-        position:'fixed',
+        [theme.breakpoints.up('md')]:{
+            position: "fixed",
+        },
+        [theme.breakpoints.down('l')]:{
+            position: "absolute",
+        },
+        bottom:0
+
     },
 }));
 
