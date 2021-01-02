@@ -4,10 +4,10 @@ import React from 'react';
 const useStyles = makeStyles((theme)=>({
     senderArea:{
         [theme.breakpoints.up('md')]:{
-            width: '20%'
+            width: '50%'
         },
         [theme.breakpoints.down('l')]:{
-            width: '50%'
+            width: '80%'
         },
         height:'30%',
         borderColor:'#adceff',
@@ -18,14 +18,15 @@ const useStyles = makeStyles((theme)=>({
         borderTopLeftRadius:'10px',
         float:'right',
         padding:3,
-        margin:5
+        margin:5,
+        overflowWrap: 'anywhere'
     },
     receiverArea:{
         [theme.breakpoints.up('md')]:{
-            width: '20%'
+            width: '50%'
         },
         [theme.breakpoints.down('l')]:{
-            width: '50%'
+            width: '80%'
         },
         height:'30%',
         borderColor:'#b3ff9a',
@@ -36,7 +37,8 @@ const useStyles = makeStyles((theme)=>({
         borderBottomRightRadius:'10px',
         float:'left',
         padding:3,
-        margin:5
+        margin:5,
+        overflowWrap: 'anywhere'
     },
     messageSender:{
         fontSize:'smaller',
@@ -45,7 +47,6 @@ const useStyles = makeStyles((theme)=>({
     },
     message:{
         margin:3,
-        fontFamily:'cursive'
     }
 }));
 const MessageBox = (props) => {

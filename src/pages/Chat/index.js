@@ -50,47 +50,57 @@ const Chat = () => {
     }, []);
 
     return(
+        <>
         <Grid container>
-            <Grid item xs={12} sm={12} md={12} l={12} xl={12}>
-                <div className={classes.root}>
-                    <AppBar position="static" color='primary'>
-                    <Toolbar variant="dense">
-                        <Typography variant="h6" color="inherit">
-                            {title}
-                        </Typography>
-                    </Toolbar>
-                    </AppBar>
-                </div>
-            </Grid>
-            <Grid item xs={12} sm={12} md={12} l={12} xl={12} >
-                <Grid container style={{overflowY:'scroll',height:'500px',width:'100%'}}>
-                    {!!allMessages && (
-                        allMessages.map((message) => {
-                            return RenderMessageBox(message.isSender,message.message,message.messageSender);
-                        })
-                    )}
-                </Grid>
-            </Grid>
-            <Grid item xs={12} sm={12} md={12} l={12} xl={12}>
-                <Card style={{borderRadius:'0'}}>
-                    <Grid container>
-                    <Grid item xs={11} sm={11} md={11} l={11} xl={11}>
-                        <TextField variant="filled" style={{width:'100%'}} autoFocus onChange={(e)=>setMessage(e.target.value)}/>
-                    </Grid>
-                    <Grid item xs={1} sm={1} md={1} l={1} xl={1} style={{position:'relative'}}>
-                        <Button 
-                            variant="contained" 
-                            color="primary" 
-                            style={{position:'absolute',right:0,bottom:0,height:'100%',width:'100%'}}
-                            onClick={sendMessage}
-                        >
-                            Gönder
-                        </Button>
-                    </Grid>
-                    </Grid>
-                </Card>
-            </Grid>
+            
         </Grid>
+        <Grid container>
+            <Grid item xs={9} sm={9} md={9} l={9} xl={9}>
+            </Grid>
+
+            <Grid item xs={3} sm={3} md={3} l={3} xl={3}>
+                <Grid item xs={12} sm={12} md={12} l={12} xl={12}>
+                    <div className={classes.root}>
+                        <AppBar position="static" color='transparent'>
+                        <Toolbar variant="dense">
+                            <Typography variant="h6" color="inherit">
+                                Konuşma
+                            </Typography>
+                        </Toolbar>
+                        </AppBar>
+                    </div>
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} l={12} xl={12} >
+                    <Grid container style={{overflowY:'scroll',height:'500px',width:'100%'}}>
+                        {!!allMessages && (
+                            allMessages.map((message) => {
+                                return RenderMessageBox(message.isSender,message.message,message.messageSender);
+                            })
+                        )}
+                    </Grid>
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} l={12} xl={12}>
+                    <Card style={{borderRadius:'0'}}>
+                        <Grid container>
+                        <Grid item xs={11} sm={11} md={11} l={11} xl={11}>
+                            <TextField variant="filled" style={{width:'100%'}} autoFocus onChange={(e)=>setMessage(e.target.value)}/>
+                        </Grid>
+                        <Grid item xs={1} sm={1} md={1} l={1} xl={1} style={{position:'relative'}}>
+                            <Button 
+                                variant="contained" 
+                                color="primary" 
+                                style={{position:'absolute',right:0,bottom:0,height:'100%',width:'100%'}}
+                                onClick={sendMessage}
+                            >
+                                Gönder
+                            </Button>
+                        </Grid>
+                        </Grid>
+                    </Card>
+                </Grid>
+        </Grid>
+    </Grid>
+    </>
     )
 };
 
