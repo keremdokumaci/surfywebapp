@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { Card, TextField, Button, Grid } from '@material-ui/core';
 import MessageBox from '../components/messagebox';
-
+import VideoAvatar from './components/videoAvatar';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,14 +29,14 @@ const RenderMessageBox = (isSender,message,messageSender) => {
 
 const Chat = () => {
     const classes = useStyles();
-    const {title,socket,owner,roomId,setSocketRoom} = useContext(ChatContext);
+    const {socket,owner,roomId,setSocketRoom} = useContext(ChatContext);
     const [message,setMessage] = useState(null);
     const [allMessages,setAllMessages] = useState([]);
-    
+
     const sendMessage = () => {
         const msg = {message:message,messageSender:owner,roomId:roomId};
         socket.emit("NEW_MESSAGE",msg);
-    }
+    };
 
     useEffect(() => {
         socket.emit('JOIN_ROOM',{
@@ -47,15 +47,35 @@ const Chat = () => {
             const msg = {message: message.message,messageSender: message.messageSender, isSender: message.messageSender === owner};
             setAllMessages((allMessages)=>[...allMessages,msg]);
         });
+        
     }, []);
+
 
     return(
         <>
         <Grid container>
             
         </Grid>
-        <Grid container>
+        <Grid container spacing={1}>
             <Grid item xs={9} sm={9} md={9} l={9} xl={9}>
+                <Grid item xs={12} sm={12} md={12} l={12} xl={12}>
+                        <div className={classes.root}>
+                            <AppBar position="static" color='transparent'>
+                            <Toolbar variant="dense">
+                                <Typography variant="h6" color="inherit">
+                                    Video
+                                </Typography>
+                            </Toolbar>
+                            </AppBar>
+                        </div>
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} l={12} xl={12} >
+                    <Grid container>
+                        <Grid item xs={12} sm={12} md={4} l={2} xl={2} >
+                            <VideoAvatar/>
+                        </Grid>
+                    </Grid>
+                </Grid>
             </Grid>
 
             <Grid item xs={3} sm={3} md={3} l={3} xl={3}>
@@ -64,7 +84,7 @@ const Chat = () => {
                         <AppBar position="static" color='transparent'>
                         <Toolbar variant="dense">
                             <Typography variant="h6" color="inherit">
-                                Konuşma
+                                Mesajlar
                             </Typography>
                         </Toolbar>
                         </AppBar>
