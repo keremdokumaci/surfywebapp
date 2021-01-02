@@ -43,7 +43,7 @@ const VideoAvatar = () => {
         {
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
             if (navigator.getUserMedia) {
-                navigator.getUserMedia({video: true}, handleVideo, videoError);
+                navigator.getUserMedia({video: true, audio: true}, handleVideo, videoError);
             }
         }
     }, [useWebcam])

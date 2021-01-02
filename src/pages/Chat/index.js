@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import {ChatContext} from '../../contexts/ChatContext';
+import {AuthContext} from '../../contexts/AuthContext';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { Card, TextField, Button, Grid } from '@material-ui/core';
 import MessageBox from '../components/messagebox';
 import VideoAvatar from './components/videoAvatar';
+import CameraAltIcon from '@material-ui/icons/CameraAlt';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,22 +32,34 @@ const RenderMessageBox = (isSender,message,messageSender) => {
 const Chat = () => {
     const classes = useStyles();
     const {socket,owner,roomId,setSocketRoom} = useContext(ChatContext);
+    const { user } = useContext(AuthContext);
     const [message,setMessage] = useState(null);
     const [allMessages,setAllMessages] = useState([]);
+    const [camEnabledUsers, setCamEnabledUsers] = useState([]);
 
     const sendMessage = () => {
         const msg = {message:message,messageSender:owner,roomId:roomId};
         socket.emit("NEW_MESSAGE",msg);
     };
 
+    const enableCam = () => {
+        socket.emit('ENABLE_CAM',{user: user, roomId: roomId});
+
+    }
+
     useEffect(() => {
         socket.emit('JOIN_ROOM',{
-            roomId: roomId
+            roomId: roomId,
+            user: user
         });
         setSocketRoom(roomId);
         socket.on("NEW_MESSAGE",(message) => {
             const msg = {message: message.message,messageSender: message.messageSender, isSender: message.messageSender === owner};
             setAllMessages((allMessages)=>[...allMessages,msg]);
+        });
+
+        socket.on('ENABLE_CAM',(data) => {
+            setCamEnabledUsers(data);
         });
         
     }, []);
@@ -54,7 +68,11 @@ const Chat = () => {
     return(
         <>
         <Grid container>
-            
+            <Grid item xs={2} sm={2} md={2} l={2} xl={2}>
+                <Button color="secondary" onClick={enableCam}>
+                    <CameraAltIcon /> Kamera Aç
+                </Button>
+            </Grid>
         </Grid>
         <Grid container spacing={1}>
             <Grid item xs={9} sm={9} md={9} l={9} xl={9}>
