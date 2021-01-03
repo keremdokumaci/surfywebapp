@@ -61,7 +61,7 @@ const Home = () => {
                 setChatRooms(null);
         }
         fetchData();
-    },[chatRooms])
+    },[openModal])
 
     return(
         <React.Fragment>

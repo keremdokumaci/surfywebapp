@@ -38,6 +38,7 @@ const Chat = () => {
     const [allMessages,setAllMessages] = useState([]);
     const [isCamOpened,setIsCamOpened] = useState(false);
     const [activeUsers, setActiveUsers] = useState([]);
+    const [intervalId, setIntervalId] = useState([]);
 
     const sendMessage = () => {
         const msg = {message:message,messageSender:owner,roomId:roomId};
@@ -56,6 +57,32 @@ const Chat = () => {
             setIsCamOpened(false);
         }
         
+    }
+
+    const broadcastInterval = () => {
+        intervalId?.forEach(id => {
+            clearInterval(id);
+        });
+
+        const video = document.getElementById('video')
+        var intId = setInterval(() => {
+            var canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            var canvasContext = canvas.getContext("2d");
+            canvasContext.drawImage(video, 0, 0);
+            let frame =  canvas.toDataURL('image/png');
+            if(!!frame)
+                socket.emit('NEW_FRAME',{roomId: roomId, email: user.user, frame: frame});
+        },100);
+
+        setIntervalId((intervals) => [...intervals,intId]);
+    }
+
+    const broadcastIntervalClear = () => {
+        intervalId.forEach(id => {
+            clearInterval(id);
+        });
     }
 
     useEffect(() => {
@@ -80,8 +107,6 @@ const Chat = () => {
             setActiveUsers(users);
         });
         
-        
-
     }, []);
 
     useEffect(() => {
@@ -103,7 +128,7 @@ const Chat = () => {
             </Grid>
         </Grid>
         <Grid container spacing={1}>
-            <Grid item xs={9} sm={9} md={9} l={9} xl={9}>
+            <Grid item xs={6} sm={6} md={7} l={7} xl={7}>
                 <Grid item xs={12} sm={12} md={12} l={12} xl={12}>
                         <div className={classes.root}>
                             <AppBar position="static" color='transparent'>
@@ -116,12 +141,21 @@ const Chat = () => {
                         </div>
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} l={12} xl={12} >
-                    <Grid container>
+                    <Grid container >
                         {!!activeUsers && (
                             activeUsers.map((activeUser) => {
                                 return (
-                                    <Grid item xs={12} sm={12} md={4} l={2} xl={2} >
-                                        <VideoAvatar email={activeUser.user} useWebcam={user.user === activeUser.user ? isCamOpened : user.cameraEnabled} setUseWebcam={user.user === activeUser.user ? setIsCamOpened : null}/>
+                                    <Grid style={{textAlign: '-webkit-center'}} item xs={12} sm={12} md={12} l={6} xl={6} >
+                                        <VideoAvatar 
+                                            key = {activeUser.user}
+                                            activeUser={user} 
+                                            roomId={roomId} 
+                                            socket={socket} 
+                                            email={activeUser.user} 
+                                            useWebcam={user.user === activeUser.user ? isCamOpened : activeUser.cameraEnabled} 
+                                            setUseWebcam={user.user === activeUser.user ? setIsCamOpened : null}
+                                            broadcast= {user.user === activeUser.user ? {func: broadcastInterval, broadcastIntervalClear: broadcastIntervalClear} : null}
+                                        />
                                     </Grid>
                                 );
                             })
@@ -131,7 +165,7 @@ const Chat = () => {
                 </Grid>
             </Grid>
 
-            <Grid item xs={3} sm={3} md={3} l={3} xl={3}>
+            <Grid item xs={6} sm={6} md={5} l={5} xl={5}>
                 <Grid item xs={12} sm={12} md={12} l={12} xl={12}>
                     <div className={classes.root}>
                         <AppBar position="static" color='transparent'>
