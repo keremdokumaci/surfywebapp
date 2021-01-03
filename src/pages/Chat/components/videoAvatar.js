@@ -19,10 +19,8 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: deepPurple[500],
     }
 }));
-const VideoAvatar = () => {
-    const [useWebcam, setUseWebcam] = useState(null);
+const VideoAvatar = ({useWebcam, setUseWebcam, email}) => {
     const classes = useStyles();
-    const { user } = useContext(AuthContext);
 
     const handleVideo = (stream) => {
         const webcam = document.getElementById('videoDiv');
@@ -35,9 +33,6 @@ const VideoAvatar = () => {
         setUseWebcam(false);
     }
 
-    const enableWebcam = () => {
-        setUseWebcam(true);
-    }
     useEffect(() => {
         if(useWebcam)
         {
@@ -51,9 +46,9 @@ const VideoAvatar = () => {
         <>
             {
                 useWebcam ? (
-                    <video height="200px" crossOrigin="anonymous" id="videoDiv"/>
+                    <video height="110px" width="110px" crossOrigin="anonymous" id="videoDiv"/>
                 ) : (
-                    <Avatar className={classes.avatar}>{user.toString().substr(0,2)}</Avatar>
+                    <Avatar className={classes.avatar}>{email.toString().substr(0,2)}</Avatar>
                 )
             }
         </>

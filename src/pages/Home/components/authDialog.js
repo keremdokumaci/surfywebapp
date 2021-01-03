@@ -18,7 +18,7 @@ const AuthDialog = (props) => {
     };
 
     const emailChange = (val) => {
-        setUser(val.target.value);
+        setUser({user : val.target.value, cameraEnabled: false});
     }
 
     return(
